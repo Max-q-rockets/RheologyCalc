@@ -4,7 +4,7 @@ clear all
 close all
 
 RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^3)+vliq-.395;
-H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac).^-(1.42);
+H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac).^-(2.5*0.605);
 
 x = [0:0.01:1];
 SL = [0.55:0.02:0.65];

@@ -6,7 +6,7 @@ clear all
 RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^3)+vliq-.395;
 H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1+0.75.*((vfrac)./(1-(vfrac)))).^2;
 H2 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1+0.75.*((vfrac./0.605)./(1-(vfrac./0.605)))).^2;
-H3 = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-(2.5*.605);
+H3 = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-(1.5);
 H4 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-(vfrac/(1-((1-.605)/.605)*vfrac)))^(-2.5);
 H5 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-vfrac/0.605)^(-2);
 H6 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-vfrac/0.605)^(-2.5*0.605);

@@ -1,12 +1,13 @@
-function Output = TernViscPlotE4(vfrac, MC, FM, x, y)
-sl = vfrac;
+function Output = TernViscPlotE4(sl, MC, FM, x, y)
+  warning('off','all');
 if (0>MC || MC>1) || (0>FM || FM > 1)
     error('out of range');
 end
 FC = FM*MC;
 ex = 3;
-RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^ex)+vliq-.395;
-H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-1.5125;
+uvmax = 0.605;
+RFV = @(ratio, vliq) (1-uvmax-(1-uvmax)*vliq).*((1-ratio).^ex)+vliq+uvmax-1;
+H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-(2.5*uvmax);
 C = [0:0.001:1];
 M = [0:0.001:1];
 Output = 1./zeros(length(C), length(M));
@@ -32,16 +33,16 @@ for ci=1:length(C)
 end
 Output(isinf(Output)) = Inf;
 
-opt = min(min(Output))
+opt = min(min(Output));
 for i=1:size(Output)
     if Output(i) > opt*1000
         Output(i) = Inf;
     end
 end
-levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*11, opt*101, opt*1001, opt*10001];
+levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*11, opt*101, opt*1001];
 
 if nargin == 5
-    levels(end+1) = Output(x*1000, y*1000);
+    levels(end+1) = Output(x*1000+1, y*1000+1);
 end
 
 figure();
@@ -61,7 +62,7 @@ for i=1:numdiv-1
 end
 contour (X, Y, Output, levels);
 colormap jet
-caxis([opt/2 opt*100000]);
+caxis([min(levels) max(levels)]);
 set(gca, 'ColorScale', 'log')
 set(gca, 'ytick', [], 'xtick', []);
 set(gca, 'visible', 'off');
@@ -78,6 +79,6 @@ if nargin ==5
         x = x/100; y=y/100;
     end
     if (0<=x && x<=1)&&(0<=y && y<=1) && (0<=x+y && x+y<=1)
-        plot(x+0.5*y, y, 'r*');
+        plot(x+0.5*y, y, 'ro');
     end
 end
