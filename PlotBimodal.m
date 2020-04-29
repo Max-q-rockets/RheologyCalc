@@ -6,8 +6,10 @@ clear all
 RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^exp(1))+vliq-.395;
 H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1+0.75.*((vfrac)./(1-(vfrac)))).^2;
 H2 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1+0.75.*((vfrac./0.605)./(1-(vfrac./0.605)))).^2;
-H3 = @(vfrac, RFV) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-1.5;
+H3 = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-1.5;
 H4 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-(vfrac/(1-((1-.605)/.605)*vfrac)))^(-2.5);
+H5 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-vfrac/0.605)^(-2);
+H6 = @(vfrac) (2*(0.605-vfrac)./(abs(0.605-vfrac)+(0.605-vfrac))).*(1-vfrac/0.605)^(-2.5*0.605);
 
 xm = [0:0.001:.603];
 xb = [0.54:0.001:.635];
@@ -16,20 +18,23 @@ xd = [0.54:0.001:.745];
 x0 = [0.54:0.001:.76];
 
 for i=1:length(xm)
-    Farris(i) = H2(xm(i));
+    Maron(i) = H5(xm(i));
 end
 for i=1:length(xm)
-    SMH(i) = H4(xm(i));
+    KD(i) = H3(xm(i)/RFV(1,1));
 end
 for i=1:length(xm)
-    me(i) = H3(xm(i)/RFV(1,1));
+    KD(i) = H6(xm(i));
+end
+for i=1:length(xm)
+    Farris(i) = H4(xm(i));
 end
 
-% for i=1:length(xm)
-%     vc  = xm(i)-.25;
-%     vf = .25/RFV(1, 1-vc);
-%     Hm(i) = H(vc/RFV(1,1))*H(vf);
-% end
+for i=1:length(xm)
+    vc  = xm(i)-.25;
+    vf = .25/RFV(1, 1-vc);
+    Hm(i) = H3(vc/RFV(1,1))*H3(vf);
+end
 % for i=1:length(xm)
 %     vc  = xm(i)-.25;
 %     vf = .25/RFV(1, 1-vc);
@@ -69,11 +74,11 @@ end
 %     vf = .25/RFV(0, 1-vc);
 %     H0(i) = H(vc/RFV(1,1))*H(vf);
 % end
-semilogy(xm, Farris, 'r');
+semilogy(xm, KD, 'r');
 hold on
-%semilogy(xm, Hu, 'k');
-semilogy(xm, SMH, 'b');
-semilogy(xm, me, 'm');
+ semilogy(xm, Hm, 'k');
+ semilogy(xm, KD, 'b');
+semilogy(xm, Farris, 'm');
 %semilogy(xm, Hu3, 'm*');
 %semilogy(xm, Hu2, 'y*');
 % semilogy(xb, Hb);

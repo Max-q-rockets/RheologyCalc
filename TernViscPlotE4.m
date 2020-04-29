@@ -5,7 +5,7 @@ if (0>MC || MC>1) || (0>FM || FM > 1)
 end
 FC = FM*MC;
 RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^2.5)+vliq-.395;
-H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-2.5;
+H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-1.5125;
 C = [0:0.001:1];
 M = [0:0.001:1];
 Output = 1./zeros(length(C), length(M));
