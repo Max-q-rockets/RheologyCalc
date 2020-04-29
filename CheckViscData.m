@@ -1,5 +1,5 @@
-function output = CheckViscData(num)
-OP = TernViscPlotE5(0.60, .5, .4);
+function output = CheckViscData(ex, num)
+OP = TernViscPlotE5(0.60, .5, .4, ex);
 %400, 200, visc
 Data = [0, 70, 781;
        50, 0, 432;

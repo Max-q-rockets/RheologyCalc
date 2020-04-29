@@ -1,0 +1,5 @@
+ex = 2.5;
+for i=1:1000
+    for n=1:13
+        CheckViscData(n, ex);
+        

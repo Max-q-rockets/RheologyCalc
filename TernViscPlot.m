@@ -20,7 +20,7 @@ end
 Output(isinf(Output)) = Inf;
 
 opt = min(min(Output));
-levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*1.3, opt*1.5, opt*2, opt*3, opt*10, opt*100, opt*1000, opt*10000];
+levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*10, opt*100, opt*1000, opt*10000];
 
 figure();
 X = ones(length(M));

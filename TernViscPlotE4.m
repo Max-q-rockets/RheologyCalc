@@ -4,7 +4,8 @@ if (0>MC || MC>1) || (0>FM || FM > 1)
     error('out of range');
 end
 FC = FM*MC;
-RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^2.5)+vliq-.395;
+ex = 3;
+RFV = @(ratio, vliq) (.395-.395*vliq).*((1-ratio).^ex)+vliq-.395;
 H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-1.5125;
 C = [0:0.001:1];
 M = [0:0.001:1];
@@ -23,7 +24,7 @@ for ci=1:length(C)
         FC = MC*FM;
         RFVM = RFV(MC, V-vc);
         fracm = vm/RFVM;
-        RatioF = FM-abs((FM-FC)*(1-m/(m+c))^.4);
+        RatioF = FM-abs((FM-FC)*(c/(m+c))^(1/ex));
         RFVF = RFV(RatioF, V-vm-vc);
         fracf = vf/RFVF;
         Output(ci, mi) = H(fracf)*H(fracm)*H(fracc);            
@@ -38,6 +39,10 @@ for i=1:size(Output)
     end
 end
 levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*11, opt*101, opt*1001, opt*10001];
+
+if nargin == 5
+    levels(end+1) = Output(x*1000, y*1000);
+end
 
 figure();
 X = ones(length(M));
