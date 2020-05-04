@@ -14,19 +14,17 @@ Output = 1./zeros(length(C), length(M));
 for ci=1:length(C)
     c = C(ci);
     for mi=1:(length(M)-ci-1)
-        V = 1;
         m = M(mi);
         vc = sl*c;
         vm = sl*m;
         vf = sl-vm-vc;
-        liq=1-sl;
         RFVC = RFV(1, 1);
         fracc = vc/RFVC;
         FC = MC*FM;
-        RFVM = RFV(MC, V-vc);
+        RFVM = RFV(MC, 1-vc);
         fracm = vm/RFVM;
         RatioF = FM-abs((FM-FC)*(c/(m+c))^(1/ex));
-        RFVF = RFV(RatioF, V-vm-vc);
+        RFVF = RFV(RatioF, 1-vm-vc);
         fracf = vf/RFVF;
         Output(ci, mi) = H(fracf)*H(fracm)*H(fracc);            
     end
@@ -42,7 +40,7 @@ end
 levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*11, opt*101, opt*1001];
 
 if nargin == 5
-    levels(end+1) = Output(x*1000+1, y*1000+1);
+    levels(end+1) = Output(round(x*1000+1), round(y*1000+1));
 end
 
 figure();
