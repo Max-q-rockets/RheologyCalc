@@ -26,14 +26,17 @@ for ci=1:length(C)
         RatioF = FM-abs((FM-FC)*(c/(m+c))^(1/ex));
         RFVF = RFV(RatioF, 1-vm-vc);
         fracf = vf/RFVF;
-        Output(ci, mi) = H(fracf)*H(fracm)*H(fracc);            
+        Output(ci, mi) = H(fracf)*H(fracm)*H(fracc);
+        if nargin == 5 && abs(c-x)<0.0005 && abs(m-y)<0.0005
+            H(fracf)*H(fracm)*H(fracc)
+        end
     end
 end
 Output(isinf(Output)) = Inf;
 
 opt = min(min(Output));
 for i=1:size(Output)
-    if Output(i) > opt*1000
+    if Output(i) > opt*10000
         Output(i) = Inf;
     end
 end
