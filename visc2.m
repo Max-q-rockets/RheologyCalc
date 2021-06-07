@@ -1,4 +1,4 @@
-function viscosity = visc2(amounts, sizes, densities, liqdens)
+function viscosity = visc2(amounts, sizes, densities, liqdens)%amounts is a vector of the amount by mass of each particle size, sizes is a vector containing the particle sizes, densities is a vector containing the densities of each particle size, and liqdens is the density of the liquid fraction. Both should be in descending order of particle size.
 ex = 2.5;
 uvmax = 0.605;
 RFV = @(ratio, vliq) (1-uvmax-(1-uvmax)*vliq).*((1-ratio).^ex)+vliq+uvmax-1;

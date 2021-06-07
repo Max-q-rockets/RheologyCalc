@@ -1,4 +1,4 @@
-function viscosity = visc(SL, amounts, ratios, solid)
+function viscosity = visc(SL, amounts, ratios, solid) %SL = solids loading by volume (0 to 1), amounts is a vector containing the amounts of each particle size, ratios is a vector containing the ratios of the particle sizes, and solid is a flag (set to 1 if true) for telling it whether your amounts were in only as a fraction of the solids or as a fraction of everything
 global ex 
 ex = 2.5;
 uvmax = 0.605;

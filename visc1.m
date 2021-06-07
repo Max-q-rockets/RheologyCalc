@@ -1,4 +1,4 @@
-function viscosity = visc1(amounts, sizes)
+function viscosity = visc1(amounts, sizes) %amounts is a vector of the amount by volume of each particle size, sizes is a vector containing the particle sizes. Both should be in descending order of particle size.
 ex = 2.5;
 uvmax = 0.605;
 RFV = @(ratio, vliq) (1-uvmax-(1-uvmax)*vliq).*((1-ratio).^ex)+vliq+uvmax-1;
