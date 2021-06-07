@@ -1,6 +1,6 @@
 function viscosity = visc(SL, amounts, ratios, solid)
 global ex 
-ex = 2.5;
+ex = 3;
 uvmax = 0.605;
 RFV = @(ratio, vliq) (1-uvmax-(1-uvmax)*vliq).*((1-ratio).^ex)+vliq+uvmax-1;
 H = @(vfrac) (2*(1-vfrac)./(abs(1-vfrac)+(1-vfrac))).*(1-vfrac)^-(2.5*uvmax);
