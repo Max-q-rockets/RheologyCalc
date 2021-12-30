@@ -1,4 +1,4 @@
-function Output = TernViscPlotV1(amounts, sizes, ind, plotyn) %sl = solids loading by volume (between 0 and 1), MC = ratio of medium/coarse sizes, FM = ratio of fine/medium sizes, x&y are optional if you want to calculate a specific point
+function Output = TernViscPlotV3(amounts, sizes, densities, SParams, liqdens, ind, plotyn) %sl = solids loading by volume (between 0 and 1), MC = ratio of medium/coarse sizes, FM = ratio of fine/medium sizes, x&y are optional if you want to calculate a specific point
   warning('off','all');
 C = [0:0.001:1];
 M = [0:0.001:1];
@@ -12,7 +12,7 @@ for ci=1:length(C)
         amounts1(ind(1)) = sum1*c;
         amounts1(ind(2)) = sum1*m;
         amounts1(ind(3)) = sum1*(1-(c+m));
-        Output(ci, mi) = visc1(amounts1, sizes);
+        Output(ci, mi) = visc3(amounts1, sizes, densities, SParams, liqdens);
     end
 end
 Output(isinf(Output)) = Inf;
@@ -56,8 +56,8 @@ plot([0,0.5], [0,1], 'k');
 plot([0, 1], [0, 0], 'k');
 xlim([0,1]);
 title(['solids loading ' ,num2str(sum(amounts)), ' optimal ', num2str(opt)]);
-xlabel('volume fraction of coarse');
-ylabel('volume fraction of medium');
+%xlabel('volume fraction of coarse');
+%ylabel('volume fraction of medium');
 if plotyn == 'y'
     sum2 = amounts(ind(1))+amounts(ind(2))+amounts(ind(3));
     x = amounts(ind(1))/sum2;
