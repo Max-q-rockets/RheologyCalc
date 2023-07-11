@@ -14,6 +14,7 @@ semilogy(C, Output);
 hold on
 opt = min(Output);
 ylim([1, min([opt*10^3, max(Output)])]);
+xlim([0, 1]);
 if plotyn == 'y'
     x = (amounts(ind(1)))/(amounts(ind(1))+amounts(ind(2)));
     y= visc1(amounts, sizes);

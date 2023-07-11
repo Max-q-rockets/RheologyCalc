@@ -14,7 +14,8 @@ semilogy(C, Output);
 hold on
 opt = min(Output);
 ylim([1, min([opt*10^3, max(Output)])]);
-if plotyn == 'y'
+xlim([0, 1]);
+if nargin == 6 && plotyn == 'y'
     x = (amounts(ind(1)))/(amounts(ind(1))+amounts(ind(2)));
     y= visc2(amounts, sizes, densities, liqdens);
     semilogy(x,y, 'ro')
