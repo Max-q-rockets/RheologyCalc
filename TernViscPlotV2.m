@@ -25,10 +25,6 @@ for i=1:size(Output)
 end
 levels = [opt*1.0001, opt*1.001, opt*1.01, opt*1.1, opt*2, opt*11, opt*101, opt*1001];
 
-if nargin == 5
-    levels(end+1) = Output(round(x*1000+1), round(y*1000+1));
-end
-
 figure();
 X = ones(length(M));
 Y = ones(length(C));
@@ -56,16 +52,12 @@ plot([0,0.5], [0,1], 'k');
 plot([0, 1], [0, 0], 'k');
 xlim([0,1]);
 title(['solids loading ' ,num2str(sum(amounts)), ' optimal ', num2str(opt)]);
-%xlabel('volume fraction of coarse');
-%ylabel('volume fraction of medium');
-if plotyn == 'y'
+text (0,-.03, 'fine', 'HorizontalAlignment','center')
+text (1, -.03, 'coarse', 'HorizontalAlignment','center')
+text (0.5, 1.05, 'med', 'HorizontalAlignment','center')
+if nargin == 6 && plotyn == 'y'
     sum2 = amounts(ind(1))+amounts(ind(2))+amounts(ind(3));
     x = amounts(ind(1))/sum2;
     y = amounts(ind(2))/sum2;
-    if (1<=x && x<=100)||(1<=y && y<=100)
-        x = x/100; y=y/100;
-    end
-    if (0<=x && x<=1)&&(0<=y && y<=1) && (0<=x+y && x+y<=1)
-        plot(x+0.5*y, y, 'ro');
-    end
+    plot(x+0.5*y, y, 'ro');
 end
