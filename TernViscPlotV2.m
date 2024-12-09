@@ -1,4 +1,4 @@
-function Output = TernViscPlotV2(amounts, sizes, densities, liqdens, ind, plotyn) %sl = solids loading by volume (between 0 and 1), MC = ratio of medium/coarse sizes, FM = ratio of fine/medium sizes, x&y are optional if you want to calculate a specific point
+function Output = TernViscPlotV2(amounts, sizes, densities, liqdens, ind, plotyn) %[array of amounts of solid in descending size order], [array of sizes in descending size order], [array of densities in descending size order], liquid density, [indices of components you want to vary]
   warning('off','all');
 C = [0:0.001:1];
 M = [0:0.001:1];
