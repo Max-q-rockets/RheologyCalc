@@ -18,7 +18,7 @@ end
 Output(isinf(Output)) = Inf;
 
 opt = min(min(Output));
-for i=1:size(Output)
+for i=1:numel(Output)
     if Output(i) > opt*10000
         Output(i) = Inf;
     end
